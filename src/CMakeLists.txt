@@ -1,6 +1,9 @@
 add_executable(
   quadfall
   main.cpp
+  block.cpp
+  well.cpp
+  game.cpp
 )
 
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/Modules/" ${CMAKE_MODULE_PATH})
