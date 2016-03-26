@@ -1,6 +1,10 @@
 #include "game.h"
 #include "defines.h"
-Game::Game() {
+
+Game::Game() 
+  : well()
+  , renderer()
+{
   //create window
   window.create(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), WINDOW_CAPTION);
 }
@@ -8,9 +12,6 @@ Game::Game() {
 void Game::restart() {
   gameTurnTime = sf::seconds(1.0f);
   timeFromLastTurn = sf::microseconds(0);
-
-  blocks.clear();
-  blocks.push_back(Block());
 }
 
 void Game::run() {
@@ -26,7 +27,7 @@ void Game::update() {
 
   if (timeFromLastTurn > gameTurnTime) {
     timeFromLastTurn = sf::microseconds(0);
-    blocks.back().moveDown();
+    //moveDown();
   }
 }
 
@@ -38,23 +39,21 @@ void Game::handleInput() {
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) ||
       sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-      blocks.back().moveLeft();
+      //moveLeft();
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) ||
       sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-      blocks.back().moveRight();
+      //moveRight();
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) ||
       sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-      blocks.back().moveDown();
+      //moveDown();
     }
   }
 }
 
 void Game::render() {
   window.clear(sf::Color::Black);
-  for (std::vector<Block>::iterator i = blocks.begin(); i != blocks.end(); ++i) {
-      i->draw(window);
-  }
+  renderer.renderWell(well, window);
   window.display();
 }

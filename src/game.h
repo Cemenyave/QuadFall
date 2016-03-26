@@ -4,8 +4,10 @@
 
 #include <vector>
 #include <SFML/Graphics.hpp>
-#include "block.h"
+
 #include "well.h"
+#include "renderer.h"
+
 class Game {
 
   sf::Clock actClock;
@@ -14,9 +16,8 @@ class Game {
 
   sf::RenderWindow window;
 
-
-  std::vector<Block> blocks;
   Well well;
+  Renderer renderer;
 
 public:
   Game();

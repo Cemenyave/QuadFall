@@ -1,9 +1,13 @@
+#include <iostream>
 #include "well.h"
 
 Well::Well()
-  : blocks()
 {
-  memset(content, 0, WELL_WIDTH * WELL_HEIGHT);
+  memset(content, 0, WELL_WIDTH * WELL_HEIGHT * (sizeof(int)));
+
+  for (size_t i = 0; i < WELL_WIDTH; ++i) {
+    content[i] = 1;
+  }
 }
 
 void Well::testRows() {
@@ -41,3 +45,16 @@ void Well::clearFullRows() {
     }
   }
 }
+
+size_t Well::getWidth() const {
+  return WELL_WIDTH;
+}
+
+size_t Well::getHeight() const {
+  return WELL_HEIGHT;
+}
+
+bool Well::isCellFree(size_t rowNumber, size_t collNumber) const {
+  return content[rowNumber * WELL_WIDTH + collNumber] == 0;
+}
+

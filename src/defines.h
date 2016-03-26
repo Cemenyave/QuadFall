@@ -2,8 +2,8 @@
 #define WINDOW_HEIGHT 600
 #define WINDOW_CAPTION "QuadFall"
 
-#define BLOCK_SIZE 50
+#define BLOCK_SIZE 20
 #define BLOCK_OFFSET 5
 
-#define WELL_WIDTH 7
-#define WELL_HEIGHT 16
+#define WELL_WIDTH 10
+#define WELL_HEIGHT 20/*22*/

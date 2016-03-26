@@ -9,8 +9,6 @@
 
 class Well {
 
-  std::vector<Block> blocks;
-
   //0,0 bottom left cell of the well
   int content[WELL_WIDTH * WELL_HEIGHT];
 
@@ -24,6 +22,11 @@ public:
   void setRowToClear(size_t row_number);
   bool shouldClearRow(size_t row_number);
   void clearFullRows();
+
+  size_t getWidth() const;
+  size_t getHeight() const;
+
+  bool isCellFree(size_t rowNumber, size_t collNumber) const;
 };
 
 #endif
