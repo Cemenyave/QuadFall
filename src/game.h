@@ -2,37 +2,66 @@
 #define _GAME_IONCE
 #pragma once
 
-#include <vector>
 #include <SFML/Graphics.hpp>
 
-#include "well.h"
+#include "scene.h"
+#include "quadfallController.h"
 #include "renderer.h"
 
+#include <vector>
+#include <queue>
+
+
+class IKeyboardInputHandler;
+
+typedef Scene (*t_scenePointer);
+typedef std::vector<t_scenePointer> t_sceneStack;
+typedef std::queue<t_scenePointer> t_sceneQueue;
+
+
 class Game {
-
   sf::Clock actClock;
-  sf::Time gameTurnTime;// = sf::seconds(1.0f);
-  sf::Time timeFromLastTurn; // = sf::microseconds(0);
-
   sf::RenderWindow window;
 
-  Well well;
+  t_sceneStack sceneStack;
+  t_sceneQueue sceneStackSuspended;
+  bool endScene = false;
+
+  IKeyboardInputHandler * kbdHandler = nullptr;
+
+  QuadfallController controller;
   Renderer renderer;
 
 public:
   Game();
 
+  void startScene(t_scenePointer scene);
+  void requestEndScene();
+
+  void setKeyboardHandler(IKeyboardInputHandler * kbd_handler);
+
   //Manages running of game cycle
   void run();
 
-  //Drop game state
-  void restart();
-
-  //Update dame state
+  //Update game state
   void update();
 
-  virtual void handleInput();
+  void render();
 
-  virtual void render();
+
+  QuadfallController * getController() { return &controller; }
+  Renderer * getRenderer() { return &renderer; }
+
+private:
+  void registerNewScenes();
+  void endLastScene();
+
 };
+
+
+void init_game();
+void terminate_game();
+
+
+extern Game * game;
 #endif

@@ -1,31 +1,41 @@
-add_executable(
-  quadfall
+
+
+set(SOURCES
   main.cpp
-  block.cpp
-  well.cpp
   game.cpp
+  atlas.cpp
+  score.cpp
+  gameScene.cpp
+  gameOverScene.cpp
+  pauseScene.cpp
   renderer.cpp
+  quadfallController.cpp
+  quadfallControls.cpp
 )
 
-set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/Modules/" ${CMAKE_MODULE_PATH})
+add_subdirectory( data )
 
+add_executable(
+  quadfall
+  ${SOURCES}
+)
+
+#set up SFML configuration
 set(SFML_STATIC_LIBRARIES TRUE)
 find_package(SFML 2 REQUIRED system window graphics network audio)
-if(SFML_FOUND)
+# add SFML dependencies
+if (MSVC)
+  target_link_libraries(quadfall opengl32.lib winmm.lib gdi32.lib)
+ENDIF (MSVC)
 
-  # add SFML dependencies
-  if (MSVC)
-    target_link_libraries(quadfall opengl32.lib winmm.lib gdi32.lib)
-  ENDIF (MSVC)
+include_directories(${SFML_INCLUDE_DIR})
+target_link_libraries(quadfall
+  ${JPEG_LIBRARY}
+  ${FREETYPE_LIBRARY}
+  ${SFML_LIBRARIES}
+  jsoncpp
+)
 
-  target_link_libraries(quadfall ${JPEG_LIBRARY})
 
-  include_directories(${SFML_INCLUDE_DIR})
-  target_link_libraries(quadfall ${SFML_LIBRARIES})
-endif()
+install( TARGETS quadfall DESTINATION ${QUADFALL_BINARY_DIR} )
 
-IF( MSVC )
-  #Tell Visual Studio that this is windows application
-  #set_target_properties(quadfall PROPERTIES LINK_FLAGS_DEBUG "/SUBSYSTEM:WINDOWS")
-  #set_target_properties(quadfall PROPERTIES LINK_FLAGS_RELEASE "/SUBSYSTEM:WINDOWS")
-ENDIF( MSVC )

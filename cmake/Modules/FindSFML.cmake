@@ -78,6 +78,8 @@ find_path(SFML_INCLUDE_DIR SFML/Config.hpp
           PATH_SUFFIXES include
           PATHS ${FIND_SFML_PATHS})
 
+message(${FIND_SFML_PATHS})
+
 # check the version number
 set(SFML_VERSION_OK TRUE)
 if(SFML_FIND_VERSION AND SFML_INCLUDE_DIR)

@@ -1,0 +1,7 @@
+set(SOURCES
+  ${SOURCES}
+  ${CMAKE_CURRENT_SOURCE_DIR}/tetrominoType.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/tetromino.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/gameField.cpp
+  PARENT_SCOPE
+)

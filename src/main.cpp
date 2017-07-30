@@ -1,10 +1,13 @@
 #include "game.h"
+#include "gameScene.h"
 
 int main(int argc, char* argv[]) {
-  Game game;
+  init_game();
 
-  game.restart();
-  game.run();
+  game->startScene(new GameScene());
+  game->run();
+
+  terminate_game();
 
   return 0;
 }
